@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.smbms.dao.provider.ProviderMapper">
+	<select id="getProviderByList" resultType="Provider">
+		select * from smbms_provider
+		<where>
+			<if test="proCode != null and proCode != ''">
+				and proCode like concat('%',#{proCode},'%') 
+			</if>
+			<if test="proName != null and proName != ''">
+				and proName like concat('%',#{proName},'%')  
+			</if>
+		</where>
+	</select>	
+	<insert id="addProvider" parameterType="Provider">
+		INSERT INTO `smbms_provider` (`proCode`,`proName`,`proDesc`,`proContact`,
+					`proPhone`,`proAddress`,`proFax`) 
+		VALUES(#{proCode},#{proName},#{proDesc},#{proContact},#{proAddress},
+					#{proPhone},#{proFax})
+	</insert>
+</mapper>

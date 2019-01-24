@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.smbms.dao.bill.BillMapper">
+ 	<select id="getBillByList" resultType="Bill" parameterType="Bill">
+		select b.*, p.proName as providerName
+		from smbms_bill b,smbms_provider p
+		where b.providerId = p.id
+		<if test="productName != null and productName != ''">
+			and productName like concat('%',#{productName},'%')
+		</if>
+		<if test="providerId != null and providerId != 0">
+			and providerId = #{providerId}
+		</if>
+		<if test="isPayment != null and isPayment != 0">
+			and isPayment = #{isPayment}
+		</if>
+	</select> 
+</mapper>
